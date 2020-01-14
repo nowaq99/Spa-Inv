@@ -1,7 +1,6 @@
 package model;
 
-import controller.CharacterController;
-import javafx.scene.layout.Pane;
+import game.MainConst;
 
 public class Character {
 
@@ -14,14 +13,34 @@ public class Character {
     private int rightBorder;
     private int topBorder;
     private int bottomBorder;
+    private int positionX;
+    private int positionY;
+    private int height;
+    private int width;
     private boolean movingRight;
     private boolean movingLeft;
     private boolean shooting;
 
-    private CharacterController controller = new CharacterController(this);
 
-    public Character(int posX, int posY, int width, int height, Pane pane){
-        controller.firstSetup(posX, posY, width, height, pane);
+    public Character(int posX, int posY, int width, int height){
+
+        positionX = posX;
+        positionY = posY;
+        this.height = height;
+        this.width = width;
+
+        setBottomBorder(posY + height/2);
+        setTopBorder(posY - height/2);
+        setLeftBorder(posX - width/2);
+        setRightBorder(posX + width/2);
+        setMaxLeft(0);
+        setMaxRight(MainConst.paneWidth);
+        setMaxBottom(MainConst.paneHeight);
+        setMaxTop(0);
+        setMovingLeft(false);
+        setMovingRight(false);
+        setShooting(false);
+
     }
 
     public void setMaxTop(int maxTop) {
@@ -30,6 +49,38 @@ public class Character {
 
     public void setMaxBottom(int maxBottom) {
         this.maxBottom = maxBottom;
+    }
+
+    public int getPositionX() {
+        return positionX;
+    }
+
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
+    }
+
+    public int getPositionY() {
+        return positionY;
+    }
+
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
 
     public int getMaxTop() {
