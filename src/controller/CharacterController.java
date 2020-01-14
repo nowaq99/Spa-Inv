@@ -21,6 +21,7 @@ public class CharacterController {
         view.getCharacter().setLayoutY((double) height/2);
         view.getCharacter().setX(posX);
         view.getCharacter().setY(posY);
+        view.getCharacter().setFill(view.getColor());
         view.setPane(pane);
         view.getPane().getChildren().add(view.getCharacter());
 
@@ -35,6 +36,18 @@ public class CharacterController {
         model.setMovingLeft(false);
         model.setMovingRight(false);
         model.setShooting(false);
+
+    }
+
+    public void update(int newX, int newY){
+
+        view.getCharacter().setX(newX);
+        view.getCharacter().setY(newY);
+
+        model.setBottomBorder((int) (view.getCharacter().getY() + view.getPane().getPrefHeight()/2));
+        model.setTopBorder((int) (view.getCharacter().getY() - view.getPane().getPrefHeight()/2));
+        model.setLeftBorder((int) (view.getCharacter().getX() - view.getPane().getPrefWidth()/2));
+        model.setRightBorder((int) (view.getCharacter().getX() + view.getPane().getPrefWidth()/2));
 
     }
 
