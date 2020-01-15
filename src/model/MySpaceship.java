@@ -1,17 +1,33 @@
 package model;
 
-import javafx.scene.layout.Pane;
+import game.MainConst;
 
 public class MySpaceship extends Character{
 
     private int lives;
     private int score;
 
-    final static int startVelocity = 10;
-
-    public MySpaceship(int posX, int posY, int width, int height, Pane pane) {
-        super(posX, posY, width, height);
+    public MySpaceship() {
+        super(MainConst.mySpaceshipX, MainConst.mySpaceshipY, MainConst.mySpaceshipWidth, MainConst.mySpaceshipHeight);
+        setLives(MainConst.startLives);
+        setScore(0);
+        setVelocity(MainConst.mySpaceshipStartVelocity);
     }
 
 
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

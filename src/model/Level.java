@@ -1,22 +1,17 @@
 package model;
 
+import game.MainConst;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 public class Level {
 
-    private Pane pane = new Pane();
-    private Scene scene = new Scene(pane);
+    private MySpaceship user = new MySpaceship();
 
     public Level(){
 
+
+
     }
 
-    public Pane getPane() {
-        return pane;
-    }
-
-    public Scene getScene() {
-        return scene;
-    }
 }

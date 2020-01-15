@@ -16,8 +16,15 @@ public class MainConst {
     public final static int exitButtonX = 150;
     public final static int exitButtonY = 400;
 
-    public  final static String newGameButtonText = "New Game";
+    public final static String newGameButtonText = "New Game";
     public final static int newGameButtonX = 150;
     public final static int newGameButtonY = 200;
+
+    public final static int startLives = 3;
+    public final static int mySpaceshipStartVelocity = 10;
+    public final static int mySpaceshipHeight = 20;
+    public final static int mySpaceshipWidth = 60;
+    public final static int mySpaceshipX = paneWidth/2;
+    public final static int mySpaceshipY = paneHeight - 50;
 
 }

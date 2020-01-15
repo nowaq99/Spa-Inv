@@ -24,10 +24,10 @@ public class Character {
 
     public Character(int posX, int posY, int width, int height){
 
-        positionX = posX;
-        positionY = posY;
-        this.height = height;
-        this.width = width;
+        setPositionX(posX);
+        setPositionY(posY);
+        setHeight(height);
+        setWidth(width);
 
         setBottomBorder(posY + height/2);
         setTopBorder(posY - height/2);

@@ -1,5 +1,6 @@
 package game;
 
+import controller.GameController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
@@ -10,13 +11,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import model.Level;
+import view.LevelView;
 
 public class Main extends Application {
 
-    //private InvadersController controller = new InvadersController(this);
     private Pane pane = new Pane();
-    private Scene scene = new Scene(pane);
+    private Stage stage;
     private Text title = new Text();
     private Button newGameButton = new Button();
     private Button exitButton = new Button();
@@ -27,6 +27,8 @@ public class Main extends Application {
         this.setTitle();
         this.setExitButton();
         this.setNewGameButton();
+        Scene scene = new Scene(pane);
+        stage = primaryStage;
         primaryStage.setScene(scene);
         primaryStage.setTitle("Space Invaders");
         primaryStage.setResizable(false);
@@ -37,6 +39,9 @@ public class Main extends Application {
         launch(args);
     }
 
+    public Stage getStage() {
+        return stage;
+    }
 
     public void setPane (){
         pane.setPrefSize(MainConst.paneWidth, MainConst.paneHeight);
@@ -70,8 +75,8 @@ public class Main extends Application {
         newGameButton.setText(MainConst.newGameButtonText);
 
         newGameButton.setOnMouseClicked(mouseEvent -> {
-            Level level = new Level();
-            scene = level.getScene();
+            LevelView view = new LevelView();
+            stage.setScene(view.getScene());
         });
     }
 
