@@ -43,6 +43,42 @@ public class Character {
 
     }
 
+    public Projectile shot(){
+
+        int posX = this.getPositionX();
+        int posY = this.getPositionY();
+
+        Projectile projectile = new Projectile(posX, posY);
+        projectile.setProperty(Projectile.Property.NULL);
+
+        return projectile;
+
+    }
+
+    public boolean move(){
+
+        int posX = this.getPositionX();
+        boolean possibility = true;
+
+        if(isMovingLeft() && !isMovingRight()){
+            posX = getPositionX()-getVelocity();
+            if (posX < getWidth()/2){
+                possibility = false;
+                posX = getWidth()/2;
+            }
+        } else if (isMovingRight() && !isMovingLeft()){
+            posX = getPositionX()+getVelocity();
+            if (posX > getMaxRight() - getWidth()/2){
+                possibility = false;
+                posX = getMaxRight() - getWidth()/2;
+            }
+        }
+
+        setPositionX(posX);
+
+        return possibility;
+    }
+
     public void setMaxTop(int maxTop) {
         this.maxTop = maxTop;
     }

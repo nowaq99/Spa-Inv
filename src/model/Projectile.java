@@ -13,6 +13,9 @@ public class Projectile {
     private int width;
     private boolean movingUp;
     private boolean movingDown;
+    private Property property;
+
+    public enum Property {My, Alien, NULL}
 
     public Projectile(int posX, int posY){
 
@@ -25,7 +28,16 @@ public class Projectile {
         setMovingDown(false);
         setMovingUp(false);
         setVelocity(MainConst.projectileVelocity);
+        setProperty(Property.NULL);
 
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
     }
 
     public int getVelocity() {

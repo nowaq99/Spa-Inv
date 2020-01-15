@@ -14,6 +14,13 @@ public class MySpaceship extends Character{
         setVelocity(MainConst.mySpaceshipStartVelocity);
     }
 
+    public Projectile shot(){
+        Projectile projectile = super.shot();
+        projectile.setProperty(Projectile.Property.My);
+
+        return projectile;
+    }
+
 
     public int getLives() {
         return lives;
