@@ -4,14 +4,10 @@ public class Alien extends Character{
 
     private boolean texture1;
     private int points;
-    private Type type;
 
-
-    public enum Type {Rick, Morty, Summer, NULL}
 
     public Alien(int posX, int posY, int width, int height){
         super(posX, posY, width, height);
-        setType(Type.NULL);
     }
 
     public Projectile shot(){
@@ -21,15 +17,6 @@ public class Alien extends Character{
         return projectile;
     }
 
-
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
 
     public int getPoints() {
         return points;

@@ -1,5 +1,6 @@
 package model;
 
+import game.LevelConst;
 import game.MainConst;
 
 public class MySpaceship extends Character{
@@ -9,9 +10,9 @@ public class MySpaceship extends Character{
 
     public MySpaceship() {
         super(MainConst.mySpaceshipX, MainConst.mySpaceshipY, MainConst.mySpaceshipWidth, MainConst.mySpaceshipHeight);
-        setLives(MainConst.startLives);
+        setLives(LevelConst.startLives);
         setScore(0);
-        setVelocity(MainConst.mySpaceshipStartVelocity);
+        setVelocity(LevelConst.mySpaceshipStartVelocity);
     }
 
     public Projectile shot(){
