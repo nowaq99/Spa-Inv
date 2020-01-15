@@ -27,4 +27,8 @@ public class MainConst {
     public final static int mySpaceshipX = paneWidth/2;
     public final static int mySpaceshipY = paneHeight - 50;
 
+    public final static int projectileHeight = 6;
+    public final static int projectileWidth = 2;
+    public final static int projectileVelocity = 10;
+
 }
