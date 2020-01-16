@@ -6,14 +6,18 @@ public class Alien extends Character{
     private int points;
 
 
-    public Alien(int posX, int posY, int width, int height){
+    public Alien(int posX, int posY, int width, int height) {
+
         super(posX, posY, width, height);
+        setTexture1(true);
+
     }
 
     public Projectile shot(){
         Projectile projectile = super.shot();
         projectile.setProperty(Projectile.Property.Alien);
-
+        projectile.setMovingDown(true);
+        projectile.setPositionY(getBottomBorder());
         return projectile;
     }
 

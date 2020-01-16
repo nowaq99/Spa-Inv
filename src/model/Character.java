@@ -45,10 +45,7 @@ public class Character {
         int posX = this.getPositionX();
         int posY = this.getPositionY();
 
-        Projectile projectile = new Projectile(posX, posY);
-        projectile.setProperty(Projectile.Property.NULL);
-
-        return projectile;
+        return new Projectile(posX, posY);
 
     }
 

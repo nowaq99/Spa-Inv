@@ -1,6 +1,5 @@
 package game;
 
-import controller.GameController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
