@@ -3,11 +3,16 @@ package model;
 import game.LevelConst;
 import game.MainConst;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class AlienPack {
 
-    private List<Alien> aliens;
+    private ArrayList<Alien> aliens = new ArrayList<>();
+
+    private boolean movingRight;
+    private boolean movingLeft;
+    private int animationTime;
+    private int shotTime;
 
     public AlienPack(){
 
@@ -17,9 +22,139 @@ public class AlienPack {
         int currentX = startX;
         int currentY = startY;
 
+        setMovingLeft(false);
+        setMovingRight(true);
+
+        setAnimationTime(LevelConst.packAnimTime);
+        setShotTime(LevelConst.packShotTimePerUnit);
+
+        for (int i = LevelConst.columns; i > 0; i--){
+
+            for (int j = LevelConst.KrzychuRows; j > 0; j--){
+
+                Alien newAlien = new Krzychu(currentX, currentY);
+                aliens.add(newAlien);
+                currentY += MainConst.packInterspaceY;
+
+            }
+            for (int j = LevelConst.RychuRows; j > 0; j--){
+
+                Alien newAlien = new Rychu(currentX, currentY);
+                aliens.add(newAlien);
+                currentY += MainConst.packInterspaceY;
+
+            }
+            for (int j = LevelConst.ZdzichuRows; j > 0; j--){
+
+                Alien newAlien = new Zdzichu(currentX, currentY);
+                aliens.add(newAlien);
+                currentY += MainConst.packInterspaceY;
+
+            }
+            currentY = startY;
+            currentX += MainConst.packInterspaceX;
+        }
+
+        for (Alien alien : aliens){
+            alien.setMovingRight(true);
+        }
+
     }
 
+    public void moveDown(){
 
+        int newPosY;
+        for (Alien alien : aliens) {
+            newPosY = alien.getPositionY() + LevelConst.movePackDown;
+            alien.setPositionY(newPosY);
+            alien.updateBorders();
+        }
 
+    }
 
+    public void move(){
+
+        boolean possibilityRight = true;
+        boolean possibilityLeft = true;
+
+        for (Alien alien : aliens){
+            if (alien.getLeftBorder() - alien.getVelocity() < alien.getMaxLeft()){
+                possibilityLeft = false;
+            }
+            if (alien.getRightBorder() + alien.getVelocity() > alien.getMaxRight()){
+                possibilityRight = false;
+            }
+        }
+
+        if(possibilityLeft && movingLeft){
+            for (Alien alien : aliens) {
+                alien.move();
+            }
+        }
+
+        if(!possibilityLeft && movingLeft){
+            moveDown();
+            for (Alien alien : aliens) {
+                alien.setMovingRight(true);
+                alien.setMovingLeft(false);
+            }
+            setMovingRight(true);
+            setMovingLeft(false);
+            setAnimationTime((int) (getAnimationTime() * 0.85));
+        }
+
+        if(possibilityRight && movingRight){
+            for (Alien alien : aliens) {
+                alien.move();
+            }
+        }
+
+        if(!possibilityRight && movingRight){
+            moveDown();
+            for (Alien alien : aliens) {
+                alien.setMovingRight(false);
+                alien.setMovingLeft(true);
+            }
+            setMovingRight(false);
+            setMovingLeft(true);
+            setAnimationTime((int) (getAnimationTime() * 0.85));
+        }
+
+    }
+
+    public int getShotTime() {
+        return shotTime;
+    }
+
+    public void setShotTime(int shotTime) {
+        this.shotTime = shotTime;
+    }
+
+    public int getAnimationTime() {
+        return animationTime;
+    }
+
+    public void setAnimationTime(int animationTime) {
+        this.animationTime = animationTime;
+    }
+
+    public ArrayList<Alien> getAliens() {
+        return aliens;
+    }
+
+    public boolean isMovingRight() {
+        return movingRight;
+    }
+
+    public void setMovingRight(boolean movingRight) {
+        this.movingRight = movingRight;
+    }
+
+    public boolean isMovingLeft() {
+        return movingLeft;
+    }
+
+    public void setMovingLeft(boolean movingLeft) {
+        this.movingLeft = movingLeft;
+    }
 }

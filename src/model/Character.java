@@ -29,10 +29,7 @@ public class Character {
         setHeight(height);
         setWidth(width);
 
-        setBottomBorder(posY + height/2);
-        setTopBorder(posY - height/2);
-        setLeftBorder(posX - width/2);
-        setRightBorder(posX + width/2);
+        updateBorders();
         setMaxLeft(0);
         setMaxRight(MainConst.paneWidth);
         setMaxBottom(MainConst.paneHeight);
@@ -55,28 +52,34 @@ public class Character {
 
     }
 
-    public boolean move(){
+    public void move(){
 
         int posX = this.getPositionX();
-        boolean possibility = true;
 
         if(isMovingLeft() && !isMovingRight()){
             posX = getPositionX()-getVelocity();
             if (posX < getWidth()/2){
-                possibility = false;
                 posX = getWidth()/2;
             }
         } else if (isMovingRight() && !isMovingLeft()){
             posX = getPositionX()+getVelocity();
             if (posX > getMaxRight() - getWidth()/2){
-                possibility = false;
                 posX = getMaxRight() - getWidth()/2;
             }
         }
 
         setPositionX(posX);
+        updateBorders();
 
-        return possibility;
+    }
+
+    public void updateBorders(){
+
+        setBottomBorder(positionY + height/2);
+        setTopBorder(positionY - height/2);
+        setLeftBorder(positionX - width/2);
+        setRightBorder(positionX + width/2);
+
     }
 
     public void setMaxTop(int maxTop) {

@@ -14,5 +14,11 @@ public class LevelConst {
     public final static int KrzychuPoints = 700;
     public final static int RychuPoints = 400;
     public final static int ZdzichuPoints = 100;
-    
+
+    public final static int movePackDown = 40;
+
+    public final static int packAnimTime = 500;
+
+    public final static int packShotTimePerUnit = 125;
+
 }
