@@ -20,8 +20,8 @@ public class MainConst {
     public final static int newGameButtonX = 150;
     public final static int newGameButtonY = 200;
 
-    public final static int mySpaceshipHeight = 20;
-    public final static int mySpaceshipWidth = 60;
+    public final static int mySpaceshipHeight = 24;
+    public final static int mySpaceshipWidth = 72;
     public final static int mySpaceshipX = paneWidth/2;
     public final static int mySpaceshipY = paneHeight - 50;
 

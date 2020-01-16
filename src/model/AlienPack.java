@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class AlienPack {
 
-    private ArrayList<Alien> aliens = new ArrayList<>();
+    private ArrayList<Alien> list = new ArrayList<>();
 
     private boolean movingRight;
     private boolean movingLeft;
@@ -33,21 +33,21 @@ public class AlienPack {
             for (int j = LevelConst.KrzychuRows; j > 0; j--){
 
                 Alien newAlien = new Krzychu(currentX, currentY);
-                aliens.add(newAlien);
+                list.add(newAlien);
                 currentY += MainConst.packInterspaceY;
 
             }
             for (int j = LevelConst.RychuRows; j > 0; j--){
 
                 Alien newAlien = new Rychu(currentX, currentY);
-                aliens.add(newAlien);
+                list.add(newAlien);
                 currentY += MainConst.packInterspaceY;
 
             }
             for (int j = LevelConst.ZdzichuRows; j > 0; j--){
 
                 Alien newAlien = new Zdzichu(currentX, currentY);
-                aliens.add(newAlien);
+                list.add(newAlien);
                 currentY += MainConst.packInterspaceY;
 
             }
@@ -55,7 +55,7 @@ public class AlienPack {
             currentX += MainConst.packInterspaceX;
         }
 
-        for (Alien alien : aliens){
+        for (Alien alien : list){
             alien.setMovingRight(true);
         }
 
@@ -64,7 +64,7 @@ public class AlienPack {
     public void moveDown(){
 
         int newPosY;
-        for (Alien alien : aliens) {
+        for (Alien alien : list) {
             newPosY = alien.getPositionY() + LevelConst.movePackDown;
             alien.setPositionY(newPosY);
             alien.updateBorders();
@@ -77,7 +77,7 @@ public class AlienPack {
         boolean possibilityRight = true;
         boolean possibilityLeft = true;
 
-        for (Alien alien : aliens){
+        for (Alien alien : list){
             if (alien.getLeftBorder() - alien.getVelocity() < alien.getMaxLeft()){
                 possibilityLeft = false;
             }
@@ -87,14 +87,14 @@ public class AlienPack {
         }
 
         if(possibilityLeft && movingLeft){
-            for (Alien alien : aliens) {
+            for (Alien alien : list) {
                 alien.move();
             }
         }
 
         if(!possibilityLeft && movingLeft){
             moveDown();
-            for (Alien alien : aliens) {
+            for (Alien alien : list) {
                 alien.setMovingRight(true);
                 alien.setMovingLeft(false);
             }
@@ -104,14 +104,14 @@ public class AlienPack {
         }
 
         if(possibilityRight && movingRight){
-            for (Alien alien : aliens) {
+            for (Alien alien : list) {
                 alien.move();
             }
         }
 
         if(!possibilityRight && movingRight){
             moveDown();
-            for (Alien alien : aliens) {
+            for (Alien alien : list) {
                 alien.setMovingRight(false);
                 alien.setMovingLeft(true);
             }
@@ -138,8 +138,8 @@ public class AlienPack {
         this.animationTime = animationTime;
     }
 
-    public ArrayList<Alien> getAliens() {
-        return aliens;
+    public ArrayList<Alien> getList() {
+        return list;
     }
 
     public boolean isMovingRight() {

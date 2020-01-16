@@ -13,4 +13,19 @@ public class Level {
 
     }
 
+    public MySpaceship getUser() {
+        return user;
+    }
+
+    public AlienPack getAliens() {
+        return aliens;
+    }
+
+    public List<Projectile> getMyProjectiles() {
+        return myProjectiles;
+    }
+
+    public List<Projectile> getAlienProjectiles() {
+        return alienProjectiles;
+    }
 }

@@ -1,5 +1,6 @@
 package game;
 
+import controller.GameController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
@@ -19,6 +20,7 @@ public class Main extends Application {
     private Text title = new Text();
     private Button newGameButton = new Button();
     private Button exitButton = new Button();
+    private GameController controller = new GameController();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -74,8 +76,9 @@ public class Main extends Application {
         newGameButton.setText(MainConst.newGameButtonText);
 
         newGameButton.setOnMouseClicked(mouseEvent -> {
-            LevelView view = new LevelView();
-            stage.setScene(view.getScene());
+            //LevelView view = new LevelView();
+            //stage.setScene(view.getScene());
+            controller.startGame(stage);
         });
     }
 

@@ -8,8 +8,8 @@ public class DrawableView {
 
     public DrawableView(int posX, int posY, int width, int height){
 
-        drawable.setLayoutX(posX + (double)width/2);
-        drawable.setLayoutY(posY + (double)height/2);
+        drawable.setLayoutX(-(double)width/2);
+        drawable.setLayoutY(-(double)height/2);
 
         drawable.setHeight(height);
         drawable.setWidth(width);

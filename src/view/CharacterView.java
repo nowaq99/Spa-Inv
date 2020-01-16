@@ -1,12 +1,9 @@
 package view;
 
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
-import view.DrawableView;
 
 public class CharacterView extends DrawableView{
 
-    private Rectangle drawable = new Rectangle();
     private Image texture1;
 
     public CharacterView(int posX, int posY, int width, int height){
