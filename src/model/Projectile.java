@@ -13,6 +13,7 @@ public class Projectile {
     private int width;
     private boolean movingUp;
     private boolean movingDown;
+    private int id;
     private Property property;
 
     public enum Property {My, Alien, NULL}
@@ -30,6 +31,14 @@ public class Projectile {
         setVelocity(MainConst.projectileVelocity);
         setProperty(Property.NULL);
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Property getProperty() {
