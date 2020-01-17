@@ -17,6 +17,7 @@ public class LevelConst {
 
     public final static int movePackDown = 40;
 
+    public final static int packVelocity = 20;
     public final static int packAnimTime = 500;
 
     public final static int packShotTimePerUnit = 125;

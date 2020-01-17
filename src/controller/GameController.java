@@ -1,16 +1,17 @@
 package controller;
 
+import game.LevelConst;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.*;
 import view.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameController {
 
@@ -22,11 +23,50 @@ public class GameController {
 
     private int projectileId;
 
-    private Timeline userMove = new Timeline(new KeyFrame(Duration.millis(25), ev -> {
+    private Timeline userMove = new Timeline(new KeyFrame(Duration.millis(20), ev -> {
 
         model.getUser().move();
         userView.update(model.getUser().getPositionX(), model.getUser().getPositionY());
 
+    }));
+
+    private Timeline enemyMove = new Timeline(new KeyFrame(Duration.millis(model.getAliens().getAnimationTime()), ev -> {
+
+        model.getAliens().move();
+
+        for(Alien alien : model.getAliens().getList()){
+            int id = model.getAliens().getList().indexOf(alien);
+            AlienView alienView = alienViews.get(id);
+            alienView.update(alien.getPositionX(), alien.getPositionY());
+            if (alien.isTexture1()){
+                alienView.getDrawable().setFill(new ImagePattern(alienView.getTexture2()));
+                alien.setTexture1(false);
+            } else {
+                alienView.getDrawable().setFill(new ImagePattern(alienView.getTexture1()));
+                alien.setTexture1(true);
+            }
+        }
+
+    }));
+
+    private Timeline userShooting = new Timeline(new KeyFrame(Duration.millis(400), ev -> {
+        model.getUser().setShooting(true);
+    }));
+
+    private Timeline alienShooting = new Timeline(new KeyFrame(Duration.millis(LevelConst.packShotTimePerUnit), ev -> {
+        if (!model.getAliens().getList().isEmpty()){
+
+            Random generator = new Random();
+            int shooting = generator.nextInt(model.getAliens().getList().size());
+            Projectile projectile = model.getAliens().getList().get(shooting).shot();
+            projectile.setId(projectileId);
+            projectiles.add(projectile);
+            AlienProjectileView alienProjectileView = new AlienProjectileView(projectile.getPositionX(), projectile.getPositionY(), projectile.getWidth(), projectile.getHeight());
+            alienProjectileView.setId(projectileId);
+            view.getPane().getChildren().add(alienProjectileView.getDrawable());
+            projectileId++;
+
+        }
     }));
 
     public GameController(){
@@ -63,13 +103,16 @@ public class GameController {
                     model.getUser().setMovingRight(true);
                     break;
                 case SPACE:
-                    Projectile projectile = model.getUser().shot();
-                    projectile.setId(projectileId);
-                    projectiles.add(projectile);
-                    MyProjectileView myProjectileView = new MyProjectileView(projectile.getPositionX(), projectile.getPositionY(), projectile.getWidth(), projectile.getHeight());
-                    myProjectileView.setId(projectileId);
-                    view.getPane().getChildren().add(myProjectileView.getDrawable());
-                    projectileId++;
+                    if (user.isShooting()) {
+                        Projectile projectile = model.getUser().shot();
+                        projectile.setId(projectileId);
+                        projectiles.add(projectile);
+                        MyProjectileView myProjectileView = new MyProjectileView(projectile.getPositionX(), projectile.getPositionY(), projectile.getWidth(), projectile.getHeight());
+                        myProjectileView.setId(projectileId);
+                        view.getPane().getChildren().add(myProjectileView.getDrawable());
+                        projectileId++;
+                        model.getUser().setShooting(false);
+                    }
             }
         });
 
@@ -91,6 +134,12 @@ public class GameController {
         stage.setScene(view.getScene());
         userMove.setCycleCount(Animation.INDEFINITE);
         userMove.play();
+        enemyMove.setCycleCount(Animation.INDEFINITE);
+        enemyMove.play();
+        userShooting.setCycleCount(Animation.INDEFINITE);
+        userShooting.play();
+        alienShooting.setCycleCount(Animation.INDEFINITE);
+        alienShooting.play();
 
     }
 

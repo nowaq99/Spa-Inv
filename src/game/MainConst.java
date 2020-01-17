@@ -2,7 +2,7 @@ package game;
 
 public class MainConst {
 
-    public final static int paneWidth = 1000;
+    public final static int paneWidth = 800;
     public final static int paneHeight = 600;
 
     public final static int titleSize = 60;

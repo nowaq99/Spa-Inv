@@ -56,6 +56,7 @@ public class AlienPack {
         }
 
         for (Alien alien : list){
+            alien.setVelocity(LevelConst.packVelocity);
             alien.setMovingRight(true);
         }
 
