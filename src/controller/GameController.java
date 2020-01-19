@@ -20,6 +20,8 @@ public class GameController {
     private ArrayList<AlienView> alienViews = new ArrayList<>();
     private MySpaceshipView userView;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
+    private ArrayList<AlienProjectileView> alienProjectileViews = new ArrayList<>();
+    private ArrayList<MyProjectileView> myProjectileViews = new ArrayList<>();
 
     private int projectileId;
 
@@ -30,7 +32,7 @@ public class GameController {
 
     }));
 
-    private Timeline enemyMove = new Timeline(new KeyFrame(Duration.millis(model.getAliens().getAnimationTime()), ev -> {
+    private Timeline alienMove = new Timeline(new KeyFrame(Duration.millis(model.getAliens().getAnimationTime()), ev -> {
 
         model.getAliens().move();
 
@@ -63,10 +65,67 @@ public class GameController {
             projectiles.add(projectile);
             AlienProjectileView alienProjectileView = new AlienProjectileView(projectile.getPositionX(), projectile.getPositionY(), projectile.getWidth(), projectile.getHeight());
             alienProjectileView.setId(projectileId);
+            alienProjectileViews.add(alienProjectileView);
             view.getPane().getChildren().add(alienProjectileView.getDrawable());
             projectileId++;
 
         }
+    }));
+
+    private Timeline projecileMoving = new Timeline(new KeyFrame(Duration.millis(20), ev -> {
+
+        Projectile removed = null;
+
+        for (Projectile projectile : projectiles){
+            int id = projectile.getId();
+            projectile.move();
+            if (projectile.getProperty() == Projectile.Property.My){
+                if (projectile.getMaxTop() > projectile.getPositionY()){
+                    removed = projectile;
+                } else {
+                    for ( MyProjectileView projectileView : myProjectileViews){
+                        if (projectileView.getId() == id){
+                            projectileView.update(projectile.getPositionX(), projectile.getPositionY());
+                            break;
+                        }
+                    }
+                }
+            } else if (projectile.getProperty() == Projectile.Property.Alien){
+                if (projectile.getMaxBottom() < projectile.getPositionY()){
+                    removed = projectile;
+                } else {
+                    for ( AlienProjectileView projectileView : alienProjectileViews){
+                        if (projectileView.getId() == id){
+                            projectileView.update(projectile.getPositionX(), projectile.getPositionY());
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (removed != null){
+            int id = removed.getId();
+            projectiles.remove(removed);
+            if(removed.getProperty() == Projectile.Property.My){
+                for ( MyProjectileView projectileView : myProjectileViews){
+                    if (projectileView.getId() == id){
+                        view.getPane().getChildren().remove(projectileView.getDrawable());
+                        myProjectileViews.remove(projectileView);
+                        break;
+                    }
+                }
+            } else if (removed.getProperty() == Projectile.Property.Alien){
+                for ( AlienProjectileView projectileView : alienProjectileViews){
+                    if (projectileView.getId() == id){
+                        view.getPane().getChildren().remove(projectileView.getDrawable());
+                        alienProjectileViews.remove(projectileView);
+                        break;
+                    }
+                }
+            }
+        }
+
     }));
 
     public GameController(){
@@ -109,6 +168,7 @@ public class GameController {
                         projectiles.add(projectile);
                         MyProjectileView myProjectileView = new MyProjectileView(projectile.getPositionX(), projectile.getPositionY(), projectile.getWidth(), projectile.getHeight());
                         myProjectileView.setId(projectileId);
+                        myProjectileViews.add(myProjectileView);
                         view.getPane().getChildren().add(myProjectileView.getDrawable());
                         projectileId++;
                         model.getUser().setShooting(false);
@@ -134,12 +194,14 @@ public class GameController {
         stage.setScene(view.getScene());
         userMove.setCycleCount(Animation.INDEFINITE);
         userMove.play();
-        enemyMove.setCycleCount(Animation.INDEFINITE);
-        enemyMove.play();
+        alienMove.setCycleCount(Animation.INDEFINITE);
+        alienMove.play();
         userShooting.setCycleCount(Animation.INDEFINITE);
         userShooting.play();
         alienShooting.setCycleCount(Animation.INDEFINITE);
         alienShooting.play();
+        projecileMoving.setCycleCount(Animation.INDEFINITE);
+        projecileMoving.play();
 
     }
 

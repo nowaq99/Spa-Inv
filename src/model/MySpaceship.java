@@ -18,7 +18,7 @@ public class MySpaceship extends Character{
     public Projectile shot(){
         Projectile projectile = super.shot();
         projectile.setProperty(Projectile.Property.My);
-        projectile.setMovingDown(true);
+        projectile.setMovingUp(true);
         projectile.setPositionY(getTopBorder());
         return projectile;
     }

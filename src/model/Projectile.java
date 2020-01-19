@@ -41,6 +41,20 @@ public class Projectile {
         this.id = id;
     }
 
+    public void move(){
+
+        int posY = getPositionY();
+
+        if (isMovingDown()){
+            posY += getVelocity();
+        } else {
+            posY -= getVelocity();
+        }
+
+        setPositionY(posY);
+
+    }
+
     public Property getProperty() {
         return property;
     }
