@@ -1,6 +1,9 @@
 package controller;
 
 import game.LevelConst;
+import game.MainConst;
+import game.YouLostScreen;
+import game.YouWinScreen;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,6 +16,8 @@ import view.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Thread.sleep;
+
 public class GameController {
 
     private Level model = new Level();
@@ -22,41 +27,52 @@ public class GameController {
     private ArrayList<Projectile> projectiles = new ArrayList<>();
     private ArrayList<AlienProjectileView> alienProjectileViews = new ArrayList<>();
     private ArrayList<MyProjectileView> myProjectileViews = new ArrayList<>();
+    private Stage controllerStage;
 
     private int projectileId;
 
 
-    private Timeline userMove = new Timeline(new KeyFrame(Duration.millis(20), ev -> {
+    private Timeline time = new Timeline(new KeyFrame(Duration.millis(1000), ev -> model.setTime(model.getTime() + 1)));
+
+    private Timeline userMove = new Timeline(new KeyFrame(Duration.millis(40), ev -> {
 
         model.getUser().move();
         userView.update(model.getUser().getPositionX(), model.getUser().getPositionY());
 
     }));
 
-    private Timeline alienMove = new Timeline(new KeyFrame(Duration.millis(model.getAliens().getAnimationTime()), ev -> {
+    private Thread alienMove = new Thread(() -> {
 
-        model.getAliens().move();
+        while(true) {
 
-        for(Alien alien : model.getAliens().getList()){
-            int id = model.getAliens().getList().indexOf(alien);
-            AlienView alienView = alienViews.get(id);
-            alienView.update(alien.getPositionX(), alien.getPositionY());
-            if (alien.isTexture1()){
-                alienView.getDrawable().setFill(new ImagePattern(alienView.getTexture2()));
-                alien.setTexture1(false);
-            } else {
-                alienView.getDrawable().setFill(new ImagePattern(alienView.getTexture1()));
-                alien.setTexture1(true);
+            model.getAliens().move();
+
+            for (Alien alien : model.getAliens().getList()) {
+                int id = model.getAliens().getList().indexOf(alien);
+                AlienView alienView = alienViews.get(id);
+                alienView.update(alien.getPositionX(), alien.getPositionY());
+                if (alien.isTexture1()) {
+                    alienView.getDrawable().setFill(new ImagePattern(alienView.getTexture2()));
+                    alien.setTexture1(false);
+                } else {
+                    alienView.getDrawable().setFill(new ImagePattern(alienView.getTexture1()));
+                    alien.setTexture1(true);
+                }
+
             }
+            try {
+                sleep(model.getAliens().getAnimationTime());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
         }
+    });
 
-    }));
+    private Timeline userShooting = new Timeline(new KeyFrame(Duration.millis(600), ev -> model.getUser().setShooting(true)));
 
-    private Timeline userShooting = new Timeline(new KeyFrame(Duration.millis(400), ev -> {
-        model.getUser().setShooting(true);
-    }));
-
-    private Timeline alienShooting = new Timeline(new KeyFrame(Duration.millis(LevelConst.packShotTimePerUnit), ev -> {
+    private Timeline alienShooting = new Timeline(new KeyFrame(Duration.millis(LevelConst.packShotTime), ev -> {
         if (!model.getAliens().getList().isEmpty()){
 
             Random generator = new Random();
@@ -101,6 +117,18 @@ public class GameController {
 
                         crashedWithAlien = projectile;
                         crashedAlien = alien;
+
+                        int points = crashedAlien.getPoints();
+                        int score = points - points * model.getTime() / 300;
+                        System.out.println(score);
+
+                        if (score < 20){
+                            score = 20;
+                        }
+
+                        model.getUser().setScore(model.getUser().getScore() + score);
+                        view.updateScore(model.getUser().getScore());
+
                         break;
 
                     }
@@ -123,6 +151,7 @@ public class GameController {
 
                     crashedWithUser = projectile;
                     model.getUser().setLives(model.getUser().getLives() - 1);
+                    view.loseLive();
                     break;
 
                 }
@@ -191,7 +220,30 @@ public class GameController {
 
     }));
 
-    //private Timeline
+    private Timeline updating = new Timeline(new KeyFrame(Duration.millis(10), ev ->{
+
+        for(Alien alien : model.getAliens().getList()){
+
+            if (alien.getBottomBorder() > MainConst.paneHeight - 100){
+
+                lose();
+                break;
+
+            }
+
+        }
+
+        if (model.getUser().getLives() <= 0){
+            lose();
+        }
+
+        if (model.getAliens().getList().isEmpty()){
+
+            win();
+
+        }
+
+    }));
 
     public GameController(){
 
@@ -256,22 +308,56 @@ public class GameController {
 
     public void startGame(Stage stage){
 
-        stage.setScene(view.getScene());
+        controllerStage = stage;
+        controllerStage.setScene(view.getScene());
+
+        time.setCycleCount(Animation.INDEFINITE);
+        time.play();
         userMove.setCycleCount(Animation.INDEFINITE);
         userMove.play();
-        alienMove.setCycleCount(Animation.INDEFINITE);
-        alienMove.play();
+        alienMove.start();
         userShooting.setCycleCount(Animation.INDEFINITE);
         userShooting.play();
         alienShooting.setCycleCount(Animation.INDEFINITE);
         alienShooting.play();
         projectileMoving.setCycleCount(Animation.INDEFINITE);
         projectileMoving.play();
+        updating.setCycleCount(Animation.INDEFINITE);
+        updating.play();
+
 
     }
 
+    private void lose(){
 
+        userMove.stop();
+        alienMove.stop();
+        userShooting.stop();
+        alienShooting.stop();
+        projectileMoving.stop();
+        updating.stop();
+        time.stop();
 
+        YouLostScreen screen = new YouLostScreen(controllerStage);
+        screen.setScore(model.getUser().getScore());
+        controllerStage.setScene(screen.getScene());
 
+    }
+
+    private void win(){
+
+        userMove.stop();
+        alienMove.stop();
+        userShooting.stop();
+        alienShooting.stop();
+        projectileMoving.stop();
+        updating.stop();
+        time.stop();
+
+        YouWinScreen screen = new YouWinScreen(controllerStage);
+        screen.setScore(model.getUser().getScore());
+        controllerStage.setScene(screen.getScene());
+
+    }
 
 }

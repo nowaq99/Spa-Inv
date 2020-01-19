@@ -1,5 +1,6 @@
 package view;
 
+
 import javafx.scene.image.Image;
 
 public class AlienView extends CharacterView {

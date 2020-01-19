@@ -11,7 +11,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import view.LevelView;
 
 public class Main extends Application {
 
@@ -23,7 +22,7 @@ public class Main extends Application {
     private GameController controller = new GameController();
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) {
         this.setPane();
         this.setTitle();
         this.setExitButton();
@@ -51,7 +50,7 @@ public class Main extends Application {
     public void setTitle (){
         pane.getChildren().add(title);
         title.setFont(Font.font(MainConst.titleFont, MainConst.titleSize));
-        title.setText(MainConst.titleText);
+        title.setText(MainConst.mainTitleText);
         title.setTextOrigin(VPos.CENTER);
         title.setTextAlignment(TextAlignment.CENTER);
         title.setWrappingWidth(MainConst.paneWidth);
@@ -61,8 +60,8 @@ public class Main extends Application {
     public void setExitButton (){
         pane.getChildren().add(exitButton);
         exitButton.setPrefSize(MainConst.buttonWidth, MainConst.buttonHeight);
-        exitButton.setLayoutX(MainConst.exitButtonX);
-        exitButton.setLayoutY(MainConst.exitButtonY);
+        exitButton.setLayoutX(MainConst.mainExitButtonX);
+        exitButton.setLayoutY(MainConst.mainExitButtonY);
         exitButton.setText(MainConst.exitButtonText);
 
         exitButton.setOnMouseClicked(mouseEvent -> Platform.exit());
@@ -71,14 +70,14 @@ public class Main extends Application {
     public void setNewGameButton (){
         pane.getChildren().add(newGameButton);
         newGameButton.setPrefSize(MainConst.buttonWidth, MainConst.buttonHeight);
-        newGameButton.setLayoutX(MainConst.newGameButtonX);
-        newGameButton.setLayoutY(MainConst.newGameButtonY);
+        newGameButton.setLayoutX(MainConst.mainNewGameButtonX);
+        newGameButton.setLayoutY(MainConst.mainNewGameButtonY);
         newGameButton.setText(MainConst.newGameButtonText);
 
         newGameButton.setOnMouseClicked(mouseEvent -> {
-            //LevelView view = new LevelView();
-            //stage.setScene(view.getScene());
+
             controller.startGame(stage);
+
         });
     }
 

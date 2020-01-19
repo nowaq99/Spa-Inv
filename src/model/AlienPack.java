@@ -26,7 +26,7 @@ public class AlienPack {
         setMovingRight(true);
 
         setAnimationTime(LevelConst.packAnimTime);
-        setShotTime(LevelConst.packShotTimePerUnit);
+        setShotTime(LevelConst.packShotTime);
 
         for (int i = LevelConst.columns; i > 0; i--){
 
