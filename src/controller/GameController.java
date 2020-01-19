@@ -73,10 +73,11 @@ public class GameController {
         }
     }));
 
-    private Timeline projecileMoving = new Timeline(new KeyFrame(Duration.millis(20), ev -> {
+    private Timeline projectileMoving = new Timeline(new KeyFrame(Duration.millis(20), ev -> {
 
         Projectile outOfScreen = null;
-        Projectile crashedProjectile = null;
+        Projectile crashedWithAlien = null;
+        Projectile crashedWithUser = null;
         Alien crashedAlien = null;
 
         for (Projectile projectile : projectiles){
@@ -98,7 +99,7 @@ public class GameController {
 
                     if (projectile.getPositionY() > alien.getTopBorder() && projectile.getPositionY() < alien.getBottomBorder() && projectile.getPositionX() > alien.getLeftBorder() && projectile.getPositionX() < alien.getRightBorder()){
 
-                        crashedProjectile = projectile;
+                        crashedWithAlien = projectile;
                         crashedAlien = alien;
                         break;
 
@@ -117,19 +118,43 @@ public class GameController {
                         }
                     }
                 }
+
+                if (projectile.getPositionY() > model.getUser().getTopBorder() && projectile.getPositionY() < model.getUser().getBottomBorder() && projectile.getPositionX() > model.getUser().getLeftBorder() && projectile.getPositionX() < model.getUser().getRightBorder()){
+
+                    crashedWithUser = projectile;
+                    model.getUser().setLives(model.getUser().getLives() - 1);
+                    break;
+
+                }
+
             }
+        }
+
+        if (crashedWithUser != null){
+
+            int proId = crashedWithUser.getId();
+            projectiles.remove(crashedWithUser);
+
+            for ( AlienProjectileView projectileView : alienProjectileViews){
+                if (projectileView.getId() == proId){
+                    view.getPane().getChildren().remove(projectileView.getDrawable());
+                    alienProjectileViews.remove(projectileView);
+                    break;
+                }
+            }
+
         }
 
         if (crashedAlien != null){
 
             int id = model.getAliens().getList().indexOf(crashedAlien);
-            int proId = crashedProjectile.getId();
+            int proId = crashedWithAlien.getId();
             model.getAliens().getList().remove(crashedAlien);
             AlienView alienView = alienViews.get(id);
             view.getPane().getChildren().remove(alienView.getDrawable());
             alienViews.remove(alienView);
 
-            projectiles.remove(crashedProjectile);
+            projectiles.remove(crashedWithAlien);
 
             for ( MyProjectileView projectileView : myProjectileViews){
                 if (projectileView.getId() == proId){
@@ -240,8 +265,8 @@ public class GameController {
         userShooting.play();
         alienShooting.setCycleCount(Animation.INDEFINITE);
         alienShooting.play();
-        projecileMoving.setCycleCount(Animation.INDEFINITE);
-        projecileMoving.play();
+        projectileMoving.setCycleCount(Animation.INDEFINITE);
+        projectileMoving.play();
 
     }
 
