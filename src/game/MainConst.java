@@ -27,7 +27,7 @@ public class MainConst {
 
     public final static int projectileHeight = 6;
     public final static int projectileWidth = 2;
-    public final static int projectileVelocity = 10;
+    public final static int projectileVelocity = 7;
 
     public final static int packInterspaceX = 65;
     public final static int packInterspaceY = 42;

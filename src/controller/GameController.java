@@ -25,6 +25,7 @@ public class GameController {
 
     private int projectileId;
 
+
     private Timeline userMove = new Timeline(new KeyFrame(Duration.millis(20), ev -> {
 
         model.getUser().move();
@@ -74,14 +75,16 @@ public class GameController {
 
     private Timeline projecileMoving = new Timeline(new KeyFrame(Duration.millis(20), ev -> {
 
-        Projectile removed = null;
+        Projectile outOfScreen = null;
+        Projectile crashedProjectile = null;
+        Alien crashedAlien = null;
 
         for (Projectile projectile : projectiles){
             int id = projectile.getId();
             projectile.move();
             if (projectile.getProperty() == Projectile.Property.My){
                 if (projectile.getMaxTop() > projectile.getPositionY()){
-                    removed = projectile;
+                    outOfScreen = projectile;
                 } else {
                     for ( MyProjectileView projectileView : myProjectileViews){
                         if (projectileView.getId() == id){
@@ -90,9 +93,22 @@ public class GameController {
                         }
                     }
                 }
+
+                for (Alien alien : model.getAliens().getList()){
+
+                    if (projectile.getPositionY() > alien.getTopBorder() && projectile.getPositionY() < alien.getBottomBorder() && projectile.getPositionX() > alien.getLeftBorder() && projectile.getPositionX() < alien.getRightBorder()){
+
+                        crashedProjectile = projectile;
+                        crashedAlien = alien;
+                        break;
+
+                    }
+
+                }
+
             } else if (projectile.getProperty() == Projectile.Property.Alien){
                 if (projectile.getMaxBottom() < projectile.getPositionY()){
-                    removed = projectile;
+                    outOfScreen = projectile;
                 } else {
                     for ( AlienProjectileView projectileView : alienProjectileViews){
                         if (projectileView.getId() == id){
@@ -104,10 +120,32 @@ public class GameController {
             }
         }
 
-        if (removed != null){
-            int id = removed.getId();
-            projectiles.remove(removed);
-            if(removed.getProperty() == Projectile.Property.My){
+        if (crashedAlien != null){
+
+            int id = model.getAliens().getList().indexOf(crashedAlien);
+            int proId = crashedProjectile.getId();
+            model.getAliens().getList().remove(crashedAlien);
+            AlienView alienView = alienViews.get(id);
+            view.getPane().getChildren().remove(alienView.getDrawable());
+            alienViews.remove(alienView);
+
+            projectiles.remove(crashedProjectile);
+
+            for ( MyProjectileView projectileView : myProjectileViews){
+                if (projectileView.getId() == proId){
+                    view.getPane().getChildren().remove(projectileView.getDrawable());
+                    myProjectileViews.remove(projectileView);
+                    break;
+                }
+            }
+
+        }
+
+
+        if (outOfScreen != null){
+            int id = outOfScreen.getId();
+            projectiles.remove(outOfScreen);
+            if(outOfScreen.getProperty() == Projectile.Property.My){
                 for ( MyProjectileView projectileView : myProjectileViews){
                     if (projectileView.getId() == id){
                         view.getPane().getChildren().remove(projectileView.getDrawable());
@@ -115,7 +153,7 @@ public class GameController {
                         break;
                     }
                 }
-            } else if (removed.getProperty() == Projectile.Property.Alien){
+            } else if (outOfScreen.getProperty() == Projectile.Property.Alien){
                 for ( AlienProjectileView projectileView : alienProjectileViews){
                     if (projectileView.getId() == id){
                         view.getPane().getChildren().remove(projectileView.getDrawable());
@@ -127,6 +165,8 @@ public class GameController {
         }
 
     }));
+
+    //private Timeline
 
     public GameController(){
 
