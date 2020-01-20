@@ -12,9 +12,8 @@ public class AlienPack {
     private boolean movingRight;
     private boolean movingLeft;
     private int animationTime;
-    private int shotTime;
 
-    public AlienPack(){
+    AlienPack(){
 
         int width = MainConst.paneWidth;
         int startX = width/2 - ((LevelConst.columns-1) * MainConst.packInterspaceX)/2;
@@ -26,7 +25,6 @@ public class AlienPack {
         setMovingRight(true);
 
         setAnimationTime(LevelConst.packAnimTime);
-        setShotTime(LevelConst.packShotTime);
 
         for (int i = LevelConst.columns; i > 0; i--){
 
@@ -62,7 +60,7 @@ public class AlienPack {
 
     }
 
-    public void moveDown(){
+    private void moveDown(){
 
         int newPosY;
         for (Alien alien : list) {
@@ -123,19 +121,11 @@ public class AlienPack {
 
     }
 
-    public int getShotTime() {
-        return shotTime;
-    }
-
-    public void setShotTime(int shotTime) {
-        this.shotTime = shotTime;
-    }
-
     public int getAnimationTime() {
         return animationTime;
     }
 
-    public void setAnimationTime(int animationTime) {
+    private void setAnimationTime(int animationTime) {
         this.animationTime = animationTime;
     }
 
@@ -143,19 +133,11 @@ public class AlienPack {
         return list;
     }
 
-    public boolean isMovingRight() {
-        return movingRight;
-    }
-
-    public void setMovingRight(boolean movingRight) {
+    private void setMovingRight(boolean movingRight) {
         this.movingRight = movingRight;
     }
 
-    public boolean isMovingLeft() {
-        return movingLeft;
-    }
-
-    public void setMovingLeft(boolean movingLeft) {
+    private void setMovingLeft(boolean movingLeft) {
         this.movingLeft = movingLeft;
     }
 }

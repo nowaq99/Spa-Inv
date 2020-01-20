@@ -6,7 +6,7 @@ public class DrawableView {
 
     private Rectangle drawable = new Rectangle();
 
-    public DrawableView(int posX, int posY, int width, int height){
+    DrawableView(int posX, int posY, int width, int height){
 
         drawable.setLayoutX(-(double)width/2);
         drawable.setLayoutY(-(double)height/2);

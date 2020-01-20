@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 public class MyProjectileView extends DrawableView{
 
-    int id;
+    private int id;
 
     public MyProjectileView(int posX, int posY, int width, int height) {
         super(posX, posY, width, height);

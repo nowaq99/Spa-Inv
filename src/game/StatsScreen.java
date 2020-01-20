@@ -19,14 +19,12 @@ public class StatsScreen {
     private Text title = new Text();
     private Button backButton = new Button();
     private Stage controllerStage;
-    private Stats stats;
 
-    public StatsScreen(Stage stage, Scene backScene, Stats stats) {
+    StatsScreen(Stage stage, Scene backScene, Stats stats) {
 
         controllerStage = stage;
         scene = new Scene(pane);
         this.backScene = backScene;
-        this.stats = stats;
         setPane();
         setTitle();
         setBackButton();
@@ -66,19 +64,19 @@ public class StatsScreen {
 
     }
 
-    public void setSimpleStat (int posX, int posY, String name, int value) {
+    private void setSimpleStat(int posX, int posY, String name, int value) {
 
         Text stat = new Text();
         stat.setFont(Font.font(MainConst.font, MainConst.statSize));
         stat.setLayoutY(-MainConst.statSize);
         stat.setX(posX);
         stat.setY(posY);
-        stat.setText(name + ": " + Integer.toString(value));
+        stat.setText(name + ": " + value);
         pane.getChildren().add(stat);
 
     }
 
-    public void setTitle (){
+    private void setTitle(){
 
         pane.getChildren().addAll(title);
         title.setFont(Font.font(MainConst.font, MainConst.titleSize));
@@ -90,7 +88,7 @@ public class StatsScreen {
 
     }
 
-    public void setBackButton(){
+    private void setBackButton(){
 
         pane.getChildren().add(backButton);
         backButton.setPrefSize(MainConst.backButtonWidth, MainConst.backButtonHeight);
@@ -98,11 +96,7 @@ public class StatsScreen {
         backButton.setLayoutY(MainConst.backButtonY);
         backButton.setText(MainConst.backButtonText);
 
-        backButton.setOnMouseClicked(mouseEvent -> {
-
-            controllerStage.setScene(backScene);
-
-        });
+        backButton.setOnMouseClicked(mouseEvent -> controllerStage.setScene(backScene));
 
 
     }
@@ -113,7 +107,7 @@ public class StatsScreen {
 
     }
 
-    public void setPane() {
+    private void setPane() {
         pane.setPrefSize(MainConst.paneWidth, MainConst.paneHeight);
     }
 

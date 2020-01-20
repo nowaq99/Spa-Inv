@@ -18,7 +18,7 @@ public class LevelView {
     private Pane pane = new Pane();
     private Scene scene;
     private ArrayList<Rectangle> lives = new ArrayList<>();
-    Text score = new Text("Score: 0");
+    private Text score = new Text("Score: 0");
 
     public LevelView(){
         setPane();
@@ -56,23 +56,10 @@ public class LevelView {
 
     public void updateScore(int score){
 
-        this.score.setText("Score: " + Integer.toString(score));
+        this.score.setText("Score: " + score);
 
     }
 
-    public void addLive (){
-
-        for(Rectangle life : lives){
-
-            if (!pane.getChildren().contains(life)){
-                pane.getChildren().add(life);
-            } else {
-                break;
-            }
-
-        }
-
-    }
 
     public void loseLive (){
 
@@ -92,7 +79,7 @@ public class LevelView {
 
     }
 
-    public void setPane (){
+    private void setPane(){
         pane.setPrefSize(MainConst.paneWidth, MainConst.paneHeight);
     }
 

@@ -28,7 +28,7 @@ public class EndScreen {
     private Stage controllerStage;
     private Stats stats;
 
-    public EndScreen(Stage stage, String title1, Stats stats){
+    EndScreen(Stage stage, String title1, Stats stats){
 
         controllerStage = stage;
         setPane();
@@ -53,7 +53,7 @@ public class EndScreen {
 
     }
 
-    public void saveStats() throws FileNotFoundException {
+    void saveStats() throws FileNotFoundException {
 
         PrintWriter file = new PrintWriter("src/stats/stats.txt");
         file.println("STATS:\n");
@@ -81,23 +81,19 @@ public class EndScreen {
         this.score.setText(Integer.toString(score));
     }
 
-    public void setPane() {
+    private void setPane() {
         pane.setPrefSize(MainConst.paneWidth, MainConst.paneHeight);
-    }
-
-    public Pane getPane() {
-        return pane;
     }
 
     public Scene getScene() {
         return scene;
     }
 
-    public Stats getStats() {
+    Stats getStats() {
         return stats;
     }
 
-    public void setTitle (){
+    private void setTitle(){
         pane.getChildren().addAll(title, score);
         title.setFont(Font.font(MainConst.font, MainConst.titleSize));
         score.setFont(Font.font(MainConst.font, MainConst.titleSize));
@@ -111,7 +107,7 @@ public class EndScreen {
         score.setY(170);
     }
 
-    public void setExitButton (){
+    private void setExitButton(){
         pane.getChildren().add(exitButton);
         exitButton.setPrefSize(MainConst.buttonWidth, MainConst.buttonHeight);
         exitButton.setLayoutX(MainConst.endExitButtonX);
@@ -121,7 +117,7 @@ public class EndScreen {
         exitButton.setOnMouseClicked(mouseEvent -> Platform.exit());
     }
 
-    public void setNewGameButton (){
+    private void setNewGameButton(){
         pane.getChildren().add(newGameButton);
         newGameButton.setPrefSize(MainConst.buttonWidth, MainConst.buttonHeight);
         newGameButton.setLayoutX(MainConst.endNewGameButtonX);
@@ -131,7 +127,7 @@ public class EndScreen {
         newGameButton.setOnMouseClicked(mouseEvent -> {
 
             try {
-                controller.startGame(controllerStage, new Stats(false));
+                controller.startGame(controllerStage, new Stats());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -139,7 +135,7 @@ public class EndScreen {
         });
     }
 
-    public void setStatsButton () {
+    private void setStatsButton() {
         pane.getChildren().add(statsButton);
         statsButton.setPrefSize(MainConst.buttonWidth, MainConst.buttonHeight);
         statsButton.setLayoutX(MainConst.endStatsButtonX);

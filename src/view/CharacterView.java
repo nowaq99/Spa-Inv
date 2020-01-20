@@ -6,7 +6,7 @@ public class CharacterView extends DrawableView{
 
     private Image texture1;
 
-    public CharacterView(int posX, int posY, int width, int height){
+    CharacterView(int posX, int posY, int width, int height){
         super(posX, posY, width, height);
     }
 
@@ -15,7 +15,7 @@ public class CharacterView extends DrawableView{
         return texture1;
     }
 
-    public void setTexture1(Image texture1) {
+    void setTexture1(Image texture1) {
         this.texture1 = texture1;
     }
 

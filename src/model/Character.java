@@ -7,8 +7,6 @@ public class Character {
     private int velocity;
     private int maxLeft;
     private int maxRight;
-    private int maxTop;
-    private int maxBottom;
     private int leftBorder;
     private int rightBorder;
     private int topBorder;
@@ -22,7 +20,7 @@ public class Character {
     private boolean shooting;
 
 
-    public Character(int posX, int posY, int width, int height){
+    Character(int posX, int posY, int width, int height){
 
         setPositionX(posX);
         setPositionY(posY);
@@ -32,8 +30,6 @@ public class Character {
         updateBorders();
         setMaxLeft(0);
         setMaxRight(MainConst.paneWidth);
-        setMaxBottom(MainConst.paneHeight);
-        setMaxTop(0);
         setMovingLeft(false);
         setMovingRight(false);
         setShooting(false);
@@ -70,7 +66,7 @@ public class Character {
 
     }
 
-    public void updateBorders(){
+    void updateBorders(){
 
         setBottomBorder(positionY + height/2);
         setTopBorder(positionY - height/2);
@@ -79,19 +75,12 @@ public class Character {
 
     }
 
-    public void setMaxTop(int maxTop) {
-        this.maxTop = maxTop;
-    }
-
-    public void setMaxBottom(int maxBottom) {
-        this.maxBottom = maxBottom;
-    }
 
     public int getPositionX() {
         return positionX;
     }
 
-    public void setPositionX(int positionX) {
+    private void setPositionX(int positionX) {
         this.positionX = positionX;
     }
 
@@ -99,7 +88,7 @@ public class Character {
         return positionY;
     }
 
-    public void setPositionY(int positionY) {
+    void setPositionY(int positionY) {
         this.positionY = positionY;
     }
 
@@ -119,23 +108,15 @@ public class Character {
         this.width = width;
     }
 
-    public int getMaxTop() {
-        return maxTop;
-    }
-
-    public int getMaxBottom() {
-        return maxBottom;
-    }
-
-    public int getVelocity() {
+    int getVelocity() {
         return velocity;
     }
 
-    public int getMaxLeft() {
+    int getMaxLeft() {
         return maxLeft;
     }
 
-    public int getMaxRight() {
+    int getMaxRight() {
         return maxRight;
     }
 
@@ -155,11 +136,11 @@ public class Character {
         return bottomBorder;
     }
 
-    public boolean isMovingRight() {
+    private boolean isMovingRight() {
         return movingRight;
     }
 
-    public boolean isMovingLeft() {
+    private boolean isMovingLeft() {
         return movingLeft;
     }
 
@@ -167,31 +148,31 @@ public class Character {
         return shooting;
     }
 
-    public void setVelocity(int velocity) {
+    void setVelocity(int velocity) {
         this.velocity = velocity;
     }
 
-    public void setMaxLeft(int maxLeft) {
+    private void setMaxLeft(int maxLeft) {
         this.maxLeft = maxLeft;
     }
 
-    public void setMaxRight(int maxRight) {
+    private void setMaxRight(int maxRight) {
         this.maxRight = maxRight;
     }
 
-    public void setLeftBorder(int leftBorder) {
+    private void setLeftBorder(int leftBorder) {
         this.leftBorder = leftBorder;
     }
 
-    public void setRightBorder(int rightBorder) {
+    private void setRightBorder(int rightBorder) {
         this.rightBorder = rightBorder;
     }
 
-    public void setTopBorder(int topBorder) {
+    private void setTopBorder(int topBorder) {
         this.topBorder = topBorder;
     }
 
-    public void setBottomBorder(int bottomBorder) {
+    private void setBottomBorder(int bottomBorder) {
         this.bottomBorder = bottomBorder;
     }
 

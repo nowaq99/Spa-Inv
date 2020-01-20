@@ -12,8 +12,7 @@ public class Stats {
     private int accuracy;
     private int time;
     private int points;
-    //private int presentsGot;
-    //private int presentsLost;
+
 
     private int highestTime;
     private int lowestTime;
@@ -25,7 +24,6 @@ public class Stats {
     private int winGames;
     private int totalAccuracy;
 
-    private boolean fromMain;
 
     public int getYourTotalShots() {
         return yourTotalShots;
@@ -59,9 +57,6 @@ public class Stats {
         return totalAccuracy;
     }
 
-    public boolean isFromMain() {
-        return fromMain;
-    }
 
     public void setTotalAccuracy(int totalAccuracy) {
         this.totalAccuracy = totalAccuracy;
@@ -107,9 +102,8 @@ public class Stats {
         this.highScore = highScore;
     }
 
-    public Stats (boolean fromMain) throws FileNotFoundException {
+    public Stats () throws FileNotFoundException {
 
-        this.fromMain = fromMain;
         readStats();
         resetStats();
 
@@ -226,15 +220,15 @@ public class Stats {
     }
 
 
-    public void setAlienShots(int alienShots) {
+    private void setAlienShots(int alienShots) {
         this.alienShots = alienShots;
     }
 
-    public void setYourShots(int yourShots) {
+    private void setYourShots(int yourShots) {
         this.yourShots = yourShots;
     }
 
-    public void setYourAccurateShots(int yourAccurateShots) {
+    private void setYourAccurateShots(int yourAccurateShots) {
         this.yourAccurateShots = yourAccurateShots;
     }
 
@@ -242,28 +236,12 @@ public class Stats {
         this.accuracy = accuracy;
     }
 
-    public void setTime(int time) {
+    private void setTime(int time) {
         this.time = time;
     }
 
-    public void setPoints(int points) {
+    private void setPoints(int points) {
         this.points = points;
     }
-
-//    public int getPresentsGot() {
-//        return presentsGot;
-//    }
-//
-//    public void setPresentsGot(int presentsGot) {
-//        this.presentsGot = presentsGot;
-//    }
-//
-//    public int getPresentsLost() {
-//        return presentsLost;
-//    }
-//
-//    public void setPresentsLost(int presentsLost) {
-//        this.presentsLost = presentsLost;
-//    }
 
 }

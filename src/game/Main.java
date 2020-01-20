@@ -3,12 +3,10 @@ package game;
 import controller.GameController;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -25,9 +23,13 @@ public class Main extends Application {
     private Button newGameButton = new Button();
     private Button exitButton = new Button();
     private GameController controller = new GameController();
-    private Stats stats = new Stats(true);
+    private Stats stats = new Stats();
 
     public Main() throws FileNotFoundException {
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     @Override
@@ -44,19 +46,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public void setPane (){
+    private void setPane() {
         pane.setPrefSize(MainConst.paneWidth, MainConst.paneHeight);
     }
 
-    public void setTitle (){
+    private void setTitle() {
         pane.getChildren().add(title);
         title.setFont(Font.font(MainConst.font, MainConst.titleSize));
         title.setText(MainConst.mainTitleText);
@@ -66,7 +60,7 @@ public class Main extends Application {
         title.setLayoutY(100);
     }
 
-    public void setExitButton (){
+    private void setExitButton() {
         pane.getChildren().add(exitButton);
         exitButton.setPrefSize(MainConst.buttonWidth, MainConst.buttonHeight);
         exitButton.setLayoutX(MainConst.mainExitButtonX);
@@ -76,7 +70,7 @@ public class Main extends Application {
         exitButton.setOnMouseClicked(mouseEvent -> Platform.exit());
     }
 
-    public void setNewGameButton (){
+    private void setNewGameButton() {
         pane.getChildren().add(newGameButton);
         newGameButton.setPrefSize(MainConst.buttonWidth, MainConst.buttonHeight);
         newGameButton.setLayoutX(MainConst.mainNewGameButtonX);

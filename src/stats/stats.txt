@@ -7,12 +7,12 @@ lowest_time:
 high_score:
 12622
 your_total_shots:
-164
+278
 your_accuracy_shots:
-98
+160
 get_hurt:
-7
+13
 total_games:
-3
+5
 win_games:
 2

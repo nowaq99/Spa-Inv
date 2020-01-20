@@ -8,7 +8,7 @@ public class MySpaceship extends Character{
     private int lives;
     private int score;
 
-    public MySpaceship() {
+    MySpaceship() {
         super(MainConst.mySpaceshipX, MainConst.mySpaceshipY, MainConst.mySpaceshipWidth, MainConst.mySpaceshipHeight);
         setLives(LevelConst.startLives);
         setScore(0);
@@ -18,7 +18,6 @@ public class MySpaceship extends Character{
     public Projectile shot(){
         Projectile projectile = super.shot();
         projectile.setProperty(Projectile.Property.My);
-        projectile.setMovingUp(true);
         projectile.setPositionY(getTopBorder());
         return projectile;
     }
