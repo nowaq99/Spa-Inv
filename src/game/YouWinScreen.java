@@ -3,11 +3,14 @@ package game;
 import javafx.stage.Stage;
 import model.Stats;
 
+import java.io.FileNotFoundException;
+
 public class YouWinScreen extends EndScreen {
 
-    public YouWinScreen(Stage stage, Stats stats){
+    public YouWinScreen(Stage stage, Stats stats) throws FileNotFoundException {
         super(stage, MainConst.winTitleText, stats);
         setStats();
+        saveStats();
     }
 
     public void setStats(){
@@ -21,7 +24,7 @@ public class YouWinScreen extends EndScreen {
             getStats().setLowestTime(getStats().getTime());
         }
         if (getStats().getTime() > getStats().getHighestTime()){
-            getStats().setLowestTime(getStats().getTime());
+            getStats().setHighestTime(getStats().getTime());
         }
 
     }

@@ -35,6 +35,34 @@ public class Stats {
         return yourTotalAccurateShots;
     }
 
+    public int getAlienShots() {
+        return alienShots;
+    }
+
+    public int getAccuracy() {
+        return accuracy;
+    }
+
+    public int getAlienAccurateShots() {
+        return alienAccurateShots;
+    }
+
+    public int getTotalGames() {
+        return totalGames;
+    }
+
+    public int getWinGames() {
+        return winGames;
+    }
+
+    public int getTotalAccuracy() {
+        return totalAccuracy;
+    }
+
+    public boolean isFromMain() {
+        return fromMain;
+    }
+
     public void setTotalAccuracy(int totalAccuracy) {
         this.totalAccuracy = totalAccuracy;
     }
@@ -109,13 +137,16 @@ public class Stats {
                     yourTotalShots = scanner.nextInt();
                     break;
                 case "your_accuracy_shots:":
-                    yourAccurateShots = scanner.nextInt();
+                    yourTotalAccurateShots = scanner.nextInt();
                     break;
                 case "get_hurt:":
                     alienAccurateShots = scanner.nextInt();
                     break;
                 case "total_games:":
                     totalGames = scanner.nextInt();
+                    break;
+                case "win_games:":
+                    winGames = scanner.nextInt();
                     break;
             }
 
@@ -154,7 +185,7 @@ public class Stats {
 
     public void addToMyAccurateShots(){
 
-        yourTotalAccurateShots += 1;
+        yourAccurateShots += 1;
 
     }
 

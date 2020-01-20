@@ -6,7 +6,7 @@ public class MainConst {
     public final static int paneHeight = 600;
 
     public final static int titleSize = 60;
-    public final static String titleFont = "Verdana";
+    public final static String font = "Verdana";
     public final static String mainTitleText = "Space Invaders";
     public final static String lostTitleText = "You Lost";
     public final static String winTitleText = "You Win";
@@ -60,5 +60,14 @@ public class MainConst {
     public final static int scoreX = 50;
     public final static int scoreY = 50;
     public final static int scoreSize = 30;
+
+    public final static String statsTitle = "Stats";
+    public final static int backButtonX = 350;
+    public final static int backButtonY = 500;
+    public final static String backButtonText = "<-- Go back";
+
+    public final static int statSize = 20;
+    public final static int backButtonWidth = 100;
+    public final static int backButtonHeight = 50;
 
 }

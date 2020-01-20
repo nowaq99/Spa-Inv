@@ -236,7 +236,11 @@ public class GameController {
 
             if (alien.getBottomBorder() > MainConst.paneHeight - 100){
 
-                lose();
+                try {
+                    lose();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             }
@@ -244,11 +248,19 @@ public class GameController {
         }
 
         if (model.getUser().getLives() <= 0){
-            lose();
+            try {
+                lose();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
         if (model.getAliens().getList().isEmpty()){
-            win();
+            try {
+                win();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
     }));
@@ -340,7 +352,7 @@ public class GameController {
 
     }
 
-    private void lose(){
+    private void lose() throws FileNotFoundException {
 
         userMove.stop();
         alienMove.stop();
@@ -350,13 +362,13 @@ public class GameController {
         updating.stop();
         time.stop();
 
-        YouLostScreen screen = new YouLostScreen(controllerStage);
+        YouLostScreen screen = new YouLostScreen(controllerStage, stats);
         screen.setScore(model.getUser().getScore());
         controllerStage.setScene(screen.getScene());
 
     }
 
-    private void win() {
+    private void win() throws FileNotFoundException {
 
         userMove.stop();
         alienMove.stop();
@@ -367,7 +379,7 @@ public class GameController {
         time.stop();
         stats.addToWinGames();
 
-        YouWinScreen screen = new YouWinScreen(controllerStage);
+        YouWinScreen screen = new YouWinScreen(controllerStage, stats);
         screen.setScore(model.getUser().getScore());
         controllerStage.setScene(screen.getScene());
 

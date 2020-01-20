@@ -3,10 +3,12 @@ package game;
 import controller.GameController;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -56,7 +58,7 @@ public class Main extends Application {
 
     public void setTitle (){
         pane.getChildren().add(title);
-        title.setFont(Font.font(MainConst.titleFont, MainConst.titleSize));
+        title.setFont(Font.font(MainConst.font, MainConst.titleSize));
         title.setText(MainConst.mainTitleText);
         title.setTextOrigin(VPos.CENTER);
         title.setTextAlignment(TextAlignment.CENTER);

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import model.Stats;
 
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class EndScreen {
 
@@ -43,8 +44,36 @@ public class EndScreen {
 
     public void setStats(){
 
-        stats.setAccuracy(stats.getYourAccurateShots()*100/stats.getYourShots());
-        stats.setTotalAccuracy(stats.getYourTotalAccurateShots()*100/stats.getYourTotalShots());
+        if (stats.getYourShots() != 0){
+            stats.setAccuracy(stats.getYourAccurateShots()*100/stats.getYourShots());
+        }
+        if (stats.getYourTotalShots() != 0){
+            stats.setTotalAccuracy(stats.getYourTotalAccurateShots()*100/stats.getYourTotalShots());
+        }
+
+    }
+
+    public void saveStats() throws FileNotFoundException {
+
+        PrintWriter file = new PrintWriter("src/stats/stats.txt");
+        file.println("STATS:\n");
+        file.println("highest_time:");
+        file.println(stats.getHighestTime());
+        file.println("lowest_time:");
+        file.println(stats.getLowestTime());
+        file.println("high_score:");
+        file.println(stats.getHighScore());
+        file.println("your_total_shots:");
+        file.println(stats.getYourTotalShots());
+        file.println("your_accuracy_shots:");
+        file.println(stats.getYourTotalAccurateShots());
+        file.println("get_hurt:");
+        file.println(stats.getAlienAccurateShots());
+        file.println("total_games:");
+        file.println(stats.getTotalGames());
+        file.println("win_games:");
+        file.println(stats.getWinGames());
+        file.close();
 
     }
 
@@ -70,8 +99,8 @@ public class EndScreen {
 
     public void setTitle (){
         pane.getChildren().addAll(title, score);
-        title.setFont(Font.font(MainConst.titleFont, MainConst.titleSize));
-        score.setFont(Font.font(MainConst.titleFont, MainConst.titleSize));
+        title.setFont(Font.font(MainConst.font, MainConst.titleSize));
+        score.setFont(Font.font(MainConst.font, MainConst.titleSize));
         title.setTextOrigin(VPos.CENTER);
         score.setTextOrigin(VPos.CENTER);
         title.setTextAlignment(TextAlignment.CENTER);
@@ -116,6 +145,13 @@ public class EndScreen {
         statsButton.setLayoutX(MainConst.endStatsButtonX);
         statsButton.setLayoutY(MainConst.endStatsButtonY);
         statsButton.setText(MainConst.statsButtonText);
+
+        statsButton.setOnMouseClicked(mouseEvent -> {
+
+            StatsScreen screen = new StatsScreen(controllerStage, scene, stats);
+            controllerStage.setScene(screen.getScene());
+
+        });
     }
 
 

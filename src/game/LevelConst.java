@@ -8,7 +8,7 @@ public class LevelConst {
     public final static int KrzychuRows = 1;
     public final static int RychuRows = 2;
     public final static int ZdzichuRows = 2;
-    public final static int columns = 1;
+    public final static int columns = 8;
     public final static int packStartY = 100;
 
     public final static int KrzychuPoints = 700;

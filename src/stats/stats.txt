@@ -1,17 +1,18 @@
 STATS:
 
 highest_time:
-0
+52
 lowest_time:
-10000
+43
 high_score:
-0
+12622
 your_total_shots:
-0
+164
 your_accuracy_shots:
-0
+98
 get_hurt:
-0
+7
 total_games:
-0
+3
 win_games:
+2
