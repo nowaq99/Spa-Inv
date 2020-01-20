@@ -23,8 +23,61 @@ public class Stats {
     private int alienAccurateShots;
     private int totalGames;
     private int winGames;
+    private int totalAccuracy;
 
     private boolean fromMain;
+
+    public int getYourTotalShots() {
+        return yourTotalShots;
+    }
+
+    public int getYourTotalAccurateShots() {
+        return yourTotalAccurateShots;
+    }
+
+    public void setTotalAccuracy(int totalAccuracy) {
+        this.totalAccuracy = totalAccuracy;
+    }
+
+    public int getYourShots() {
+        return yourShots;
+    }
+
+    public int getYourAccurateShots() {
+        return yourAccurateShots;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public int getHighestTime() {
+        return highestTime;
+    }
+
+    public int getLowestTime() {
+        return lowestTime;
+    }
+
+    public int getHighScore() {
+        return highScore;
+    }
+
+    public void setHighestTime(int highestTime) {
+        this.highestTime = highestTime;
+    }
+
+    public void setLowestTime(int lowestTime) {
+        this.lowestTime = lowestTime;
+    }
+
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
+    }
 
     public Stats (boolean fromMain) throws FileNotFoundException {
 

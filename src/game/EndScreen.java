@@ -25,8 +25,9 @@ public class EndScreen {
     private Button statsButton = new Button();
     private GameController controller = new GameController();
     private Stage controllerStage;
+    private Stats stats;
 
-    public EndScreen(Stage stage, String title1){
+    public EndScreen(Stage stage, String title1, Stats stats){
 
         controllerStage = stage;
         setPane();
@@ -36,6 +37,14 @@ public class EndScreen {
         setNewGameButton();
         setStatsButton();
         title.setText(title1);
+        this.stats = stats;
+
+    }
+
+    public void setStats(){
+
+        stats.setAccuracy(stats.getYourAccurateShots()*100/stats.getYourShots());
+        stats.setTotalAccuracy(stats.getYourTotalAccurateShots()*100/stats.getYourTotalShots());
 
     }
 
@@ -53,6 +62,10 @@ public class EndScreen {
 
     public Scene getScene() {
         return scene;
+    }
+
+    public Stats getStats() {
+        return stats;
     }
 
     public void setTitle (){

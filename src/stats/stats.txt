@@ -3,7 +3,7 @@ STATS:
 highest_time:
 0
 lowest_time:
-0
+10000
 high_score:
 0
 your_total_shots:
