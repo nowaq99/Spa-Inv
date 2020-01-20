@@ -7,8 +7,7 @@ public class Level {
     private MySpaceship user = new MySpaceship();
     private AlienPack aliens = new AlienPack();
     private int time = 0;
-    private List<Projectile> myProjectiles;
-    private List<Projectile> alienProjectiles;
+
 
     public Level(){
 
@@ -30,11 +29,4 @@ public class Level {
         return aliens;
     }
 
-    public List<Projectile> getMyProjectiles() {
-        return myProjectiles;
-    }
-
-    public List<Projectile> getAlienProjectiles() {
-        return alienProjectiles;
-    }
 }

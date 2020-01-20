@@ -10,6 +10,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import model.Stats;
+
+import java.io.FileNotFoundException;
 
 public class EndScreen {
 
@@ -85,7 +88,11 @@ public class EndScreen {
 
         newGameButton.setOnMouseClicked(mouseEvent -> {
 
-            controller.startGame(controllerStage);
+            try {
+                controller.startGame(controllerStage, new Stats(false));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
         });
     }

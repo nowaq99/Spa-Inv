@@ -1,0 +1,17 @@
+STATS:
+
+highest_time:
+0
+lowest_time:
+0
+high_score:
+0
+your_total_shots:
+0
+your_accuracy_shots:
+0
+get_hurt:
+0
+total_games:
+0
+win_games:

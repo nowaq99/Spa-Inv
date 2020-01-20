@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import model.*;
 import view.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -28,11 +29,15 @@ public class GameController {
     private ArrayList<AlienProjectileView> alienProjectileViews = new ArrayList<>();
     private ArrayList<MyProjectileView> myProjectileViews = new ArrayList<>();
     private Stage controllerStage;
+    private Stats stats;
 
     private int projectileId;
 
 
-    private Timeline time = new Timeline(new KeyFrame(Duration.millis(1000), ev -> model.setTime(model.getTime() + 1)));
+    private Timeline time = new Timeline(new KeyFrame(Duration.millis(1000), ev -> {
+        model.setTime(model.getTime() + 1);
+        stats.addToTime();
+    }));
 
     private Timeline userMove = new Timeline(new KeyFrame(Duration.millis(40), ev -> {
 
@@ -85,6 +90,7 @@ public class GameController {
             alienProjectileViews.add(alienProjectileView);
             view.getPane().getChildren().add(alienProjectileView.getDrawable());
             projectileId++;
+            stats.addToAlienShots();
 
         }
     }));
@@ -117,6 +123,8 @@ public class GameController {
 
                         crashedWithAlien = projectile;
                         crashedAlien = alien;
+                        stats.addToMyAccurateShots();
+                        stats.addToMyTotalAccurateShots();
 
                         int points = crashedAlien.getPoints();
                         int score = points - points * model.getTime() / 300;
@@ -127,6 +135,7 @@ public class GameController {
                         }
 
                         model.getUser().setScore(model.getUser().getScore() + score);
+                        stats.addToPoints(score);
                         view.updateScore(model.getUser().getScore());
 
                         break;
@@ -150,6 +159,7 @@ public class GameController {
                 if (projectile.getPositionY() > model.getUser().getTopBorder() && projectile.getPositionY() < model.getUser().getBottomBorder() && projectile.getPositionX() > model.getUser().getLeftBorder() && projectile.getPositionX() < model.getUser().getRightBorder()){
 
                     crashedWithUser = projectile;
+                    stats.addToAlienAccurateShots();
                     model.getUser().setLives(model.getUser().getLives() - 1);
                     view.loseLive();
                     break;
@@ -238,9 +248,7 @@ public class GameController {
         }
 
         if (model.getAliens().getList().isEmpty()){
-
             win();
-
         }
 
     }));
@@ -289,6 +297,8 @@ public class GameController {
                         view.getPane().getChildren().add(myProjectileView.getDrawable());
                         projectileId++;
                         model.getUser().setShooting(false);
+                        stats.addToMyShots();
+                        stats.addToMyTotalShots();
                     }
             }
         });
@@ -306,10 +316,12 @@ public class GameController {
 
     }
 
-    public void startGame(Stage stage){
+    public void startGame(Stage stage, Stats stats){
 
         controllerStage = stage;
         controllerStage.setScene(view.getScene());
+        this.stats = stats;
+        this.stats.addToTotalGames();
 
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
@@ -344,7 +356,7 @@ public class GameController {
 
     }
 
-    private void win(){
+    private void win() {
 
         userMove.stop();
         alienMove.stop();
@@ -353,6 +365,7 @@ public class GameController {
         projectileMoving.stop();
         updating.stop();
         time.stop();
+        stats.addToWinGames();
 
         YouWinScreen screen = new YouWinScreen(controllerStage);
         screen.setScore(model.getUser().getScore());

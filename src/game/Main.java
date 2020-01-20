@@ -11,6 +11,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import model.Stats;
+
+import java.io.FileNotFoundException;
 
 public class Main extends Application {
 
@@ -20,6 +23,10 @@ public class Main extends Application {
     private Button newGameButton = new Button();
     private Button exitButton = new Button();
     private GameController controller = new GameController();
+    private Stats stats = new Stats(true);
+
+    public Main() throws FileNotFoundException {
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -74,11 +81,7 @@ public class Main extends Application {
         newGameButton.setLayoutY(MainConst.mainNewGameButtonY);
         newGameButton.setText(MainConst.newGameButtonText);
 
-        newGameButton.setOnMouseClicked(mouseEvent -> {
-
-            controller.startGame(stage);
-
-        });
+        newGameButton.setOnMouseClicked(mouseEvent -> controller.startGame(stage, stats));
     }
 
 }
