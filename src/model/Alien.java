@@ -6,7 +6,7 @@ public class Alien extends Character{
     private int points;
 
 
-    Alien(int posX, int posY, int width, int height) {
+    public Alien(int posX, int posY, int width, int height) {
 
         super(posX, posY, width, height);
         setTexture1(true);

@@ -20,7 +20,7 @@ public class Character {
     private boolean shooting;
 
 
-    Character(int posX, int posY, int width, int height){
+    public Character(int posX, int posY, int width, int height){
 
         setPositionX(posX);
         setPositionY(posY);
@@ -66,7 +66,7 @@ public class Character {
 
     }
 
-    void updateBorders(){
+    public void updateBorders(){
 
         setBottomBorder(positionY + height/2);
         setTopBorder(positionY - height/2);

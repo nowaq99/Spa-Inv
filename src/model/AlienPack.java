@@ -13,7 +13,7 @@ public class AlienPack {
     private boolean movingLeft;
     private int animationTime;
 
-    AlienPack(){
+    public AlienPack(){
 
         int width = MainConst.paneWidth;
         int startX = width/2 - ((LevelConst.columns-1) * MainConst.packInterspaceX)/2;

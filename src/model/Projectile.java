@@ -17,7 +17,7 @@ public class Projectile {
 
     public enum Property {My, Alien, NULL}
 
-    Projectile(int posX, int posY){
+    public Projectile(int posX, int posY){
 
         setPositionX(posX);
         setPositionY(posY);
